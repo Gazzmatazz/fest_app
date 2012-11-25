@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Fest Mate | <%= yield(:title) %></title>
+  
+  <%-# full_title method defined in application_helper.rb -%>
+  <title><%= full_title(yield(:title)) %></title>
+  
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+
 </head>
 
 <body>
