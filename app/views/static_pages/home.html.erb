@@ -1,5 +1,15 @@
-<h1>Fest Mate</h1>
+<div class="center hero-unit">
+	<h1>Fest Mate</h1>
 
-<p>
-  This is the home page for the Fest Mate application.
-</p>
+  	<h2>
+	  This is the home page for the Fest Mate application.
+    </h2>
+
+    <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
+</div>
+
+    <%-# TEMPORARY app logo, Rails default logo in assets -%>
+<%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
+    <%-# HTML THIS YIELDS: <img alt="Rails" src="/assets/rails.png" /> -%>
+
+

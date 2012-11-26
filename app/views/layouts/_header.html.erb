@@ -1,0 +1,21 @@
+<%-# Partial file rendered in App layout -%>
+<%-# HEADER TAG with app logo and navbar links -%>
+<%-# the CSS classes here are associated with Bootstrap gem -%>
+
+<header class="navbar navbar-fixed-top navbar-inverse">
+      <div class="navbar-inner">
+        <div class="container">
+          <%= link_to "FEST MATE", root_path, id: "logo" %>
+
+          <%-# NAV TAG sets out the navigation links -%>
+          <nav>
+            <ul class="nav pull-right">
+              <li><%= link_to "Home",    root_path %></li>
+              <li><%= link_to "Help",    help_path %></li>
+              <li><%= link_to "Sign in", '#' %></li>
+            </ul>
+          </nav>
+          
+        </div>
+      </div>
+</header>
