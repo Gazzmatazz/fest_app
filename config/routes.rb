@@ -1,6 +1,7 @@
 FestApp::Application.routes.draw do
   
-  get "users/new"
+  # supply app with named routes and actions needed for a RESTful Users resource
+  resources :users
 
   root to: 'static_pages#home'
 

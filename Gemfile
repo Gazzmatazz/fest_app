@@ -26,6 +26,10 @@ gem 'jquery-rails', '2.0.2'
 
 group :test do
   gem 'capybara', '1.1.2'
+
+  # Factory Girl -  a domain-specific language in Ruby for defining
+  # Active Record objects, i.e. create a user and insert in database
+  gem 'factory_girl_rails', '4.1.0'
 end
 
 group :production do

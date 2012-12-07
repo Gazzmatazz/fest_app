@@ -1,0 +1,20 @@
+<% provide(:title, @user.name) %>
+
+<div class="row">
+
+  <aside class="span4">
+    <section>
+      <h1>
+        <%= gravatar_for @user %>
+        <%= @user.name %>
+      </h1>
+    </section>
+  </aside>
+
+</div>
+
+<%-# @user variable defined in the corresponding show action in the Users controller -%>
+
+<%-# gravatar_for method is in the file for helpers associated with the Users controller, users_helper.rb -%>
+
+<%-# the <aside> tag is used for content (such as sidebars) that complements the rest of the page but can also stand alone. The row and span4 CSS classes in the tags are both part of Bootstrap -%>

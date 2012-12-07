@@ -1,0 +1,20 @@
+<% if @user.errors.any? %>
+
+  <div id="error_explanation">
+  <%# CSS id error_explanation for styling the error messages %>
+
+    <div class="alert alert-error">
+      The form contains <%= pluralize(@user.errors.count, "error") %>.
+    </div>
+  <%# Rails method 'count' returns the number of errors %>
+  <%# pluralize is a text helper, gives pluralized version of its second argument %>
+
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li>* <%= msg %></li>
+    <% end %>
+    </ul>
+
+  </div>
+
+<% end %>
