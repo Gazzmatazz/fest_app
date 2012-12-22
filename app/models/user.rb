@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
 
   # to ensure email uniqueness, set email address to lower-case before saving to the database. 
   before_save { |user| user.email = email.downcase }
+  #  run method create_remember_token before saving the user
+  before_save :create_remember_token
   
   # Rails validates presence of attribute using the blank? method
   validates :name,  	presence: true,    length: { maximum: 40 }
@@ -37,5 +39,14 @@ class User < ActiveRecord::Base
 
   validates :password, presence: true, length: { minimum: 6 }
   validates :password_confirmation, presence: true
-  
+
+  # private methods used internally by the User model only
+  private
+
+    # As this method needs to assign to one of the user attributes, it uses 'self'
+    # Without 'self' the assignment would create a local variable remember_token
+    def create_remember_token
+      self.remember_token = SecureRandom.urlsafe_base64
+    end
+
 end

@@ -1,0 +1,30 @@
+<% provide(:title, "Sign in") %>
+<h1>Sign in</h1>
+
+<%-# The form_for code below is based on code in /users/new.html.erb -%> 
+<%-# Whereas sign-up involves creating a new USER -%> 
+<%-# sign-in involves creating a new SESSION -%>
+
+<%-# The form_for helper method generates the html for the form -%>  
+<%-# It takes in an Active Record object (session) and constructs a form in html using the object’s attributes -%>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(:session, url: sessions_path) do |f| %>
+
+      <%-# generate html for a <label> tag and <input> tag-%> 
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+
+      <%= f.submit "Sign in", class: "btn btn-large btn-primary" %>
+    <% end %>
+
+    <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+
+  </div>
+</div>
+
+<%-# submitting this form will result in a params hash where params[:session][:email] and params[:session][:password] correspond to the email and password fields. -%>

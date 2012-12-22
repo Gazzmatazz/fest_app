@@ -35,8 +35,14 @@ subject { page }
       it "should create a user" do
         expect { click_button submit }.to change(User, :count).by(1)
       end
-    end
-  end
 
-  
+      # test the appearance of the signout link to verify that the user 
+      # was successfully signed in after signing up.
+      describe "after saving the user" do
+        it { should have_link('Sign out') }
+      end
+
+    end
+    
+  end  
 end

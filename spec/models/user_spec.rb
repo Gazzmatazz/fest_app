@@ -28,7 +28,8 @@ describe User do
   it { should respond_to(:password_digest) }
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
-  it { should respond_to(:authenticate) }
+  it { should respond_to(:remember_token) }
+  it { should respond_to(:authenticate) }  
   # equivalent to code:   @user.should respond_to(:name)
   # Ruby method respond_to?, which accepts a symbol and returns 
   # true if the object responds to the given method or attribute
@@ -134,6 +135,15 @@ describe User do
       specify { user_for_invalid_password.should be_false }
       # the 'specify' method is just a synonym for 'it'
     end
+
+
+    describe "remember token" do
+    before { @user.save }  # a callback method to create the remember token
+    its(:remember_token) { should_not be_blank }
+    # equivalent to: it { @user.remember_token.should_not be_blank }
+    # the 'its' method is like 'it' but applies the subsequent test to the given attribute rather than the subject of the test
+    end
+  
   end
 
 

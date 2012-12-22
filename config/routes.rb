@@ -2,10 +2,15 @@ FestApp::Application.routes.draw do
   
   # supply app with named routes and actions needed for a RESTful Users resource
   resources :users
+  # restrict Session actions to new, create, and destroy
+  resources :sessions, only: [:new, :create, :destroy]
 
   root to: 'static_pages#home'
 
   match '/signup',  to: 'users#new'
+  match '/signin',  to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :delete
+  # via: :delete indicates signout should be invoked using an HTTP DELETE request.
 
   match '/help',    to: 'static_pages#help'
   match '/about',   to: 'static_pages#about'
