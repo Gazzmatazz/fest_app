@@ -29,12 +29,24 @@ describe User do
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:remember_token) }
+  it { should respond_to(:admin) }
   it { should respond_to(:authenticate) }  
   # equivalent to code:   @user.should respond_to(:name)
   # Ruby method respond_to?, which accepts a symbol and returns 
   # true if the object responds to the given method or attribute
 
   it { should be_valid }
+  it { should_not be_admin }
+
+  describe "with admin attribute set to 'true'" do
+    before do
+      @user.save!
+      @user.toggle!(:admin)
+      # toggle! method flips the admin attribute from false to true.
+    end
+
+    it { should be_admin }
+  end
 
   # set the user’s name to an invalid (blank) value, and 
   # then test to see that the resulting @user object is invalid

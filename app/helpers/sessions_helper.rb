@@ -37,10 +37,29 @@ module SessionsHelper
   # Its effect is to set the @current_user instance variable to the user corresponding 
   # to the remember token, but only if @current_user is not yet undefined 
 
+  #  current_user? boolean method
+  def current_user?(user)
+    user == current_user
+  end
+
+
   def sign_out
     self.current_user = nil
     cookies.delete(:remember_token)
   end
 
+  # to forward users to their intended destination after signing in, we store 
+  # the location of the requested page, then redirect to that location
+  # called in users_controller.rb
+  def redirect_back_or(default)
+    # redirect to the requested URI if it exists, or some default URI otherwise...
+    redirect_to(session[:return_to] || default)
+    # ...evaluates to session[:return_to] unless it’s nil
+    session.delete(:return_to)
+  end
+
+  def store_location
+    session[:return_to] = request.url
+  end
 
 end

@@ -7,10 +7,9 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by_email(params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
-      # Sign the user in and redirect to the user's show page.
-      sign_in user       # function sign_in
-      redirect_to user
-
+      # Sign the user in and redirect to the requested page.
+      sign_in user       # function sign_in (in sessions_helper)
+      redirect_back_or user    # redirect to requested page or default 
     else
       flash.now[:error] = 'Invalid email/password combination'
       render 'new'
