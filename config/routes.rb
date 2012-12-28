@@ -4,6 +4,8 @@ FestApp::Application.routes.draw do
   resources :users
   # restrict Session actions to new, create, and destroy
   resources :sessions, only: [:new, :create, :destroy]
+  
+  resources :userposts, only: [:create, :destroy]
 
   root to: 'static_pages#home'
 

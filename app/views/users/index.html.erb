@@ -5,7 +5,12 @@
 
 <ul class="users">
   <%= render @users %>
-  <%-# a partial to render a single user (ref: views/users/_user.html.erb) -%>
-</ul>
+</ul>     
+  <%-# render the _user.html.erb partial -%>
+  <%-# Here Rails infers that @users is a list of User objects -%>
+  <%-# Rails iterates through them and renders each one with the _user.html.erb partial -%>
+
 
 <%= will_paginate %>
+
+<%-# will_paginate assumes the existence of an instance variable called @users as we are in the Users controller. We could specify "will_paginate @users" -%> 

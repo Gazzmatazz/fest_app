@@ -14,6 +14,8 @@ class UsersController < ApplicationController
   	    @user = User.find(params[:id])
   	    # params[:id] will return the user id
   	    # the instance variable @user will then be used in view file
+
+        @userposts = @user.userposts.paginate(page: params[:page])
   end
 
   def index
@@ -64,14 +66,6 @@ class UsersController < ApplicationController
 
 
   private
-
-    def signed_in_user
-      unless signed_in?
-        store_location        # method in sessions_helper
-        redirect_to signin_url, notice: "Please sign in."
-      end
-      # shortcut for setting flash[:notice] by passing an options hash to the redirect_to function
-    end
 
     def correct_user
       @user = User.find(params[:id])

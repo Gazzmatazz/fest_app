@@ -1,0 +1,14 @@
+<%= form_for(@userpost) do |f| %>
+
+  <%-# error messages partial -%>
+  <%= render 'shared/error_messages', object: f.object %>
+  <%-# ...creates a variable called object in the error_messages partial -%>
+
+  <div class="field">
+    <%= f.text_area :content, placeholder: "Compose new post..." %>
+  </div>
+  <%= f.submit "Post", class: "btn btn-large btn-primary" %>
+
+<% end %>
+
+<%-# @userpost defined in static_pages_controller as: @userpost = current_user.userposts.build -%>

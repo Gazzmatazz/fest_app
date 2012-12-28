@@ -42,6 +42,13 @@ module SessionsHelper
     user == current_user
   end
 
+  def signed_in_user
+    unless signed_in?
+      store_location
+      redirect_to signin_url, notice: "Please sign in."
+      # shortcut for setting flash[:notice] by passing an options hash to the redirect_to function
+    end
+  end
 
   def sign_out
     self.current_user = nil

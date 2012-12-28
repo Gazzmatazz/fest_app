@@ -1,0 +1,12 @@
+<% if @feed_items.any? %>
+
+  <ol class="userposts">
+    <%= render partial: 'shared/feed_item', collection: @feed_items %>
+  </ol>
+
+  <%= will_paginate @feed_items %>
+
+<% end %>
+
+<%-# defers the feed item rendering to a feed_item partial, -%>  
+<%-# passing a :collection parameter with the feed items -%>

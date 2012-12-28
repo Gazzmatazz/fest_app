@@ -31,6 +31,7 @@ describe User do
   it { should respond_to(:remember_token) }
   it { should respond_to(:admin) }
   it { should respond_to(:authenticate) }  
+  it { should respond_to(:userposts) }
   # equivalent to code:   @user.should respond_to(:name)
   # Ruby method respond_to?, which accepts a symbol and returns 
   # true if the object responds to the given method or attribute
@@ -148,7 +149,6 @@ describe User do
       # the 'specify' method is just a synonym for 'it'
     end
 
-
     describe "remember token" do
     before { @user.save }  # a callback method to create the remember token
     its(:remember_token) { should_not be_blank }
@@ -156,7 +156,38 @@ describe User do
     # the 'its' method is like 'it' but applies the subsequent test to the given attribute rather than the subject of the test
     end
   
-  end
+  end    # end "return value of authenticate method"
+
+
+  # Test the order of a user’s posts
+  describe "userpost associations" do
+
+    before { @user.save }
+    let!(:older_userpost) do         
+      FactoryGirl.create(:userpost, user: @user, created_at: 1.day.ago)
+      # let variables only spring into existence when referenced, not when defined 
+      # let! ("bang") method creates them and their timestamps immediately
+    end
+    let!(:newer_userpost) do
+      FactoryGirl.create(:userpost, user: @user, created_at: 1.hour.ago)
+    end
+
+    it "should have the right userposts in the right order" do
+      @user.userposts.should == [newer_userpost, older_userpost]
+      # i.e. posts should be ordered newest first
+    end
+
+    it "should destroy associated userposts" do
+      userposts = @user.userposts.dup   # need .dup as normal array copies only point to array
+      @user.destroy
+      userposts.should_not be_empty   # safety check to catch any errors should the dup ever be accidentally removed
+      userposts.each do |userpost|
+        Userpost.find_by_id(userpost.id).should be_nil   
+        # Userpost.find_by_id  returns nil if the record is not found
+      end
+    end
+
+  end   # end "userpost associations"
 
 
 end

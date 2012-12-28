@@ -19,6 +19,9 @@ class User < ActiveRecord::Base
   
   # Rails method that checks presence of passwords and that they match
   has_secure_password
+  
+  # posts should be destroyed when their associated user is destroyed
+  has_many :userposts, dependent: :destroy
 
   # to ensure email uniqueness, set email address to lower-case before saving to the database. 
   before_save { |user| user.email = email.downcase }
@@ -39,6 +42,14 @@ class User < ActiveRecord::Base
 
   validates :password, presence: true, length: { minimum: 6 }
   validates :password_confirmation, presence: true
+
+
+  def feed
+    # preliminary implementation for the userpost status feed
+    Userpost.where("user_id = ?", id)
+    # the '?' ensures id is 'escaped' before inclusion in the SQL query (security)
+    # Best practice escaping variables injected into SQL statements
+  end
 
   # private methods used internally by the User model only
   private

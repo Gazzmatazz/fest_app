@@ -1,15 +1,46 @@
-<div class="center hero-unit">
+<% if signed_in? %>
+  <div class="row">
+    <aside class="span4">
+
+  	  <%-# Render partial for the Home page sidebar in views/shared/_user_info.html-%>
+      <section>
+        <%= render 'shared/user_info' %>
+      </section>
+
+      <%-# Render partial for the Userpost form -%>
+      <section>
+        <%= render 'shared/userpost_form' %>
+      </section>
+
+    </aside>
+
+    <div class="span8">
+      <h3>Post Feed</h3>
+      <%= render 'shared/feed' %>
+    </div>
+
+  </div>  
+<% else %>
+
+  <div class="center hero-unit">
 	<h1>Fest Mate</h1>
 
   	<h2>
 	  This is the home page for the Fest Mate application.
     </h2>
 
-    <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
-</div>
+    <%= link_to "Sign up now!", signup_path, 
+    							class: "btn btn-large btn-primary" %>
+  </div>
 
-    <%-# TEMPORARY app logo, Rails default logo in assets -%>
-<%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
-    <%-# HTML THIS YIELDS: <img alt="Rails" src="/assets/rails.png" /> -%>
+  <%-# TEMPORARY app logo, Rails default logo in assets -%>
+  <%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
+  <%-# HTML THIS YIELDS: <img alt="Rails" src="/assets/rails.png" /> -%>
+
+<% end %>
+
+
+
+
 
 

@@ -51,6 +51,7 @@ describe "Authentication" do
   describe "authorization" do
 
     # verify that non-signed-in users accessing edit or update are sent to the signin page
+    # same again for non-signed-in users tryng to create a post
     describe "for non-signed-in users" do
       let(:user) { FactoryGirl.create(:user) }
 
@@ -92,8 +93,21 @@ describe "Authentication" do
             before { visit users_path }
             it { should have_selector('title', text: 'Sign in') }
           end
+        end   # end "in the Users controller"
 
-      end   # end "in the Users controller"
+
+        describe "in the Userposts controller" do
+
+          describe "submitting to the create action" do
+            before { post userposts_path }
+            specify { response.should redirect_to(signin_path) }
+          end
+
+          describe "submitting to the destroy action" do
+            before { delete userpost_path(FactoryGirl.create(:userpost)) }
+            specify { response.should redirect_to(signin_path) }
+          end
+        end
     end     # end "for non-signed-in users"
 
 

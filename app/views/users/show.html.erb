@@ -11,6 +11,20 @@
     </section>
   </aside>
 
+  <div class="span8">
+    <% if @user.userposts.any? %>
+      <h3>Posts (<%= @user.userposts.count %>)</h3>
+
+      <ol class="userposts">
+        <%= render @userposts %>
+      </ol>
+      <%-# Renders each userpost in the @userposts variable using _userpost.html.erb partial -%>
+      <%-# similar to render code in users/index.html -%>
+	
+      <%= will_paginate @userposts %>
+    <% end %>
+  </div>
+
 </div>
 
 <%-# @user variable defined in the corresponding show action in the Users controller -%>

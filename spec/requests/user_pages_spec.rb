@@ -53,11 +53,21 @@ describe "User pages" do
 
 
 	describe "profile page" do
-    	let(:user) { FactoryGirl.create(:user) }
-    	before { visit user_path(user) }
+    let(:user) { FactoryGirl.create(:user) }
+    let!(:post1) { FactoryGirl.create(:userpost, user: user, content: "Foo") }
+    let!(:post2) { FactoryGirl.create(:userpost, user: user, content: "Bar") }
 
-    	it { should have_selector('h1',    text: user.name) }
-   	 	it { should have_selector('title', text: user.name) }
+    before { visit user_path(user) }
+
+    it { should have_selector('h1',    text: user.name) }
+    it { should have_selector('title', text: user.name) }
+
+    describe "userposts" do
+      it { should have_content(post1.content) }
+      it { should have_content(post2.content) }
+      it { should have_content(user.userposts.count) }    
+      # we can use the count method here due to the association between user and userposts
+    end
   end
 
 
