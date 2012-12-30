@@ -1,0 +1,12 @@
+<%-# A form for following a user (using Ajax, remote: true)  -%>
+
+<%= form_for(current_user.relationships.build(followed_id: @user.id),
+             remote: true) do |f| %>
+
+  <div><%= f.hidden_field :followed_id %></div>
+  <%= f.submit "Follow", class: "btn btn-large btn-primary" %>
+
+<% end %>
+
+<%-# this form only displays a button to send request -%>
+<%-# builds a new relationship, and sends a POST request -%>

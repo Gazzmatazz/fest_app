@@ -32,12 +32,27 @@ describe User do
   it { should respond_to(:admin) }
   it { should respond_to(:authenticate) }  
   it { should respond_to(:userposts) }
+
   # equivalent to code:   @user.should respond_to(:name)
   # Ruby method respond_to?, which accepts a symbol and returns 
   # true if the object responds to the given method or attribute
 
   it { should be_valid }
   it { should_not be_admin }
+
+  it { should respond_to(:relationships) }
+  # test for the user.followed_users attribute...
+  it { should respond_to(:followed_users) }
+
+  it { should respond_to(:reverse_relationships) }
+  it { should respond_to(:followers) }
+
+  # defintions for following?, follow! and unfollow! in models/user.rb
+  it { should respond_to(:following?) }
+  # users should be able to follow another user...
+  it { should respond_to(:follow!) }
+  # users should be able to unfollow other users...
+  it { should respond_to(:unfollow!) }
 
   describe "with admin attribute set to 'true'" do
     before do
@@ -189,5 +204,33 @@ describe User do
 
   end   # end "userpost associations"
 
+
+  describe "following" do
+    let(:other_user) { FactoryGirl.create(:user) }    
+    before do
+      @user.save
+      @user.follow!(other_user)
+    end
+
+    it { should be_following(other_user) }
+    its(:followed_users) { should include(other_user) }
+
+    describe "followed user" do
+      # switch subjects using the subject method, replacing @user with other_user
+      # to test follower relationship
+      subject { other_user }
+      its(:followers) { should include(@user) }
+    end
+
+    describe "and unfollowing" do
+      before { @user.unfollow!(other_user) }
+
+      it { should_not be_following(other_user) }
+      its(:followed_users) { should_not include(other_user) }
+    end
+
+
+
+  end
 
 end

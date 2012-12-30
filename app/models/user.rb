@@ -23,6 +23,29 @@ class User < ActiveRecord::Base
   # posts should be destroyed when their associated user is destroyed
   has_many :userposts, dependent: :destroy
 
+  # Note: as the userposts table has a user_id attribute to identify the user,
+  # Rails infers this as a foreign key. Rails expects a foreign key of the form
+  # <class>_id, where <class> is the lower-case version of the class name (user)
+
+  # for the relationships table we must specify the foreign key here as 
+  # we used the attribute name "follower_id" instead of "user_id"
+  has_many :relationships, foreign_key: "follower_id", dependent: :destroy
+  # Destroying a user should also destroy that user’s relationships
+
+  has_many :followed_users, through: :relationships, source: :followed
+  # the :source parameter tells Rails that the source of the followed_users array 
+  # is the set of followed_id. Otherwise rails would look for followed_users_id
+
+  # unlike the relationship asociation, which uses follower_id as foreign key
+  # the reverse_relationships uses followed_id
+  has_many :reverse_relationships, foreign_key: "followed_id",
+                                   class_name:  "Relationship",
+                                   dependent:   :destroy
+  # As we named it reverse_relationships we have to specify the class is "Relationship"
+
+  has_many :followers, through: :reverse_relationships, source: :follower
+  # we could leave out the source here as Rails would look for follower_id
+
   # to ensure email uniqueness, set email address to lower-case before saving to the database. 
   before_save { |user| user.email = email.downcase }
   #  run method create_remember_token before saving the user
@@ -46,9 +69,26 @@ class User < ActiveRecord::Base
 
   def feed
     # preliminary implementation for the userpost status feed
-    Userpost.where("user_id = ?", id)
+    # Userpost.where("user_id = ?", id)
     # the '?' ensures id is 'escaped' before inclusion in the SQL query (security)
     # Best practice escaping variables injected into SQL statements
+
+    Userpost.from_users_followed_by(self)
+    # defined in models/userpost.rb
+  end
+
+  def following?(other_user)
+    relationships.find_by_followed_id(other_user.id)
+  end
+
+  # create a follow relationship
+  def follow!(other_user)
+    relationships.create!(followed_id: other_user.id)
+  end
+
+  # destroy a follow relationship
+  def unfollow!(other_user)
+    relationships.find_by_followed_id(other_user.id).destroy
   end
 
   # private methods used internally by the User model only

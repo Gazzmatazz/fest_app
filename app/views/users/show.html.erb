@@ -9,9 +9,18 @@
         <%= @user.name %>
       </h1>
     </section>
+
+    <section>
+      <%= render 'shared/stats' %>        
+      <%-# views/shared/_stats -%>
+
+    </section>
   </aside>
 
   <div class="span8">
+    <%= render 'follow_form' if signed_in? %>    
+    <%-# views/users/_follow_form -%>
+
     <% if @user.userposts.any? %>
       <h3>Posts (<%= @user.userposts.count %>)</h3>
 

@@ -63,6 +63,22 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
+  # routes and actions added to display who user is following and user's followers
+  def following
+    @title = "Following"
+    @user = User.find(params[:id])
+    @users = @user.followed_users.paginate(page: params[:page])
+    render 'show_follow'
+          # views/users/show_follow.html.erb
+  end
+
+  def followers
+    @title = "Followers"
+    @user = User.find(params[:id])
+    @users = @user.followers.paginate(page: params[:page])
+    render 'show_follow'
+  end
+
 
 
   private

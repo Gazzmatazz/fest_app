@@ -1,11 +1,20 @@
 FestApp::Application.routes.draw do
-  
   # supply app with named routes and actions needed for a RESTful Users resource
-  resources :users
+  
+  resources :users do
+    member do
+      get :following, :followers
+      # we must add two new actions to the Users controller for these two routes
+    end
+  end
+  # the member method means that the routes respond to URIs containing the user id
+
   # restrict Session actions to new, create, and destroy
   resources :sessions, only: [:new, :create, :destroy]
   
   resources :userposts, only: [:create, :destroy]
+
+  resources :relationships, only: [:create, :destroy]
 
   root to: 'static_pages#home'
 
