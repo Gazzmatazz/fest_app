@@ -14,7 +14,8 @@ class UserpostsController < ApplicationController
       flash[:success] = "Post created!"
       redirect_to root_url
     else
-      @feed_items = []           # necessary as Home page expects an @feed_items instance variable
+      @feed_items = []           
+      # ...necessary as Home page expects an @feed_items instance variable
       render 'static_pages/home'
     end
   end

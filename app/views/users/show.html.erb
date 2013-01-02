@@ -18,7 +18,8 @@
   </aside>
 
   <div class="span8">
-    <%= render 'follow_form' if signed_in? %>    
+    <%= render 'follow_form' if signed_in? %>   
+    <%-# Display a 'Follow' or 'Unfollow' button -%> 
     <%-# views/users/_follow_form -%>
 
     <% if @user.userposts.any? %>
