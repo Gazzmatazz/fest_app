@@ -20,6 +20,7 @@
           <% @users.each do |user| %>
             <%= link_to gravatar_for(user, size: 30), user %>
           <% end %>
+          <%-# content in @users depends on which action called this partial -'following' (user.followed_users) or 'followers' (user.followers) -%>
         </div>
       <% end %>
     </section>

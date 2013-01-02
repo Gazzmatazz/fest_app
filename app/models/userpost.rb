@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: userposts
+#
+#  id         :integer          not null, primary key
+#  content    :string(255)
+#  user_id    :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class Userpost < ActiveRecord::Base
   # all attributes in a model are accessible by default,
   # only one attribute needs to be editable through the web, the content attribute, 
@@ -21,10 +32,14 @@ class Userpost < ActiveRecord::Base
     where("user_id IN (#{followed_user_ids}) OR user_id = :user_id", 
           user_id: user.id)
   end
-  # this code and SQL subselect would yield this for user 1:
+  # this code and SQL subselect would yield this SQL request for user 1:
   # SELECT * FROM userposts WHERE
   #                       user_id IN   (SELECT followed_id FROM relationships
   #                                     WHERE follower_id = 1)
   #                       OR user_id = 1
+  #
+  # The inner command in brackets extracts followed_id's from the relationships table 
+  # entries that contain the user_id (follower_id) 
+  # Then all (content) is extracted from userposts that match those followed_id's
 
 end

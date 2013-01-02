@@ -19,7 +19,7 @@ module SessionsHelper
 
 # current_user will be accessible in both controllers and views, 
 # which will allow ruby code such as current_user.name
-# without 'self' Ruby would create a local variable called current_user.
+# Without 'self' Ruby would create a local variable called current_user.
 
 
   # method current_user= 

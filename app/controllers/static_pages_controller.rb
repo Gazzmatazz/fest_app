@@ -5,7 +5,7 @@ class StaticPagesController < ApplicationController
       @userpost = current_user.userposts.build
                 # used in views/shared/_userpost_form.html
       @feed_items = current_user.feed.paginate(page: params[:page])
-                # the status feed partial
+                # the views/shared/_feed partial
     end
   end
 

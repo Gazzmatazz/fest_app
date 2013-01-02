@@ -1,13 +1,16 @@
+<%-# HOME VIEW FOR SIGNED-IN USERS-%>
+
 <% if signed_in? %>
   <div class="row">
     <aside class="span4">
 
   	  <%-# Render partial for the Home page sidebar in views/shared/_user_info.html-%>
+      <%-# Displays in top left: gravatar, username, link to profile, posts count-%>
       <section>
         <%= render 'shared/user_info' %>
       </section>
 
-      <%-# Render partial for the displaying following and followers count -%>
+      <%-# Render partial for displaying following and followers count -%>
       <section>
         <%= render 'shared/stats' %>
       </section>
@@ -20,11 +23,16 @@
     </aside>
 
     <div class="span8">
+    <%-# Right side of window, render list of different user posts -%>
       <h3>Post Feed</h3>
       <%= render 'shared/feed' %>
     </div>
 
   </div>  
+
+
+<%-# HOME VIEW FOR SIGNED-OUT USERS-%>
+
 <% else %>
 
   <div class="center hero-unit">

@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   
   before_filter :correct_user,   only: [:edit, :update]
   # users should only be allowed to edit their own information
+  # correct_user defined below
 
   before_filter :admin_user,     only: :destroy
   # restrict access to the destroy action to admins
@@ -33,8 +34,9 @@ class UsersController < ApplicationController
       flash[:success] = "Welcome to Fest Mate!"
       redirect_to @user
       # the default behavior for a Rails action is to render the corresponding view
-      # but here we want to redirect to the specific user profile
-      # we can omit the user_url in the redirect, writing simply redirect_to @user to redirect to the user show page
+      # but here we want to redirect to the specific user profile ('show' view file).
+      # We can omit the user_url in the redirect, writing simply redirect_to @user 
+      # to redirect to the user show page
     else
       render 'new'
       # if it doesn't save new user then stay on new view
@@ -42,11 +44,11 @@ class UsersController < ApplicationController
   end
 
   def edit
-    # @user already defined by correct_user at before filter
+    # @user already defined by correct_user (defined below and called at before filter)
   end
 
   def update
-    # @user already defined by correct_user at before filter
+    # @user already defined by correct_user (defined below and called at before filter)
     if @user.update_attributes(params[:user])
       # Handle a successful update.
       flash[:success] = "Profile updated"
@@ -63,7 +65,8 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
-  # routes and actions added to display who user is following and user's followers
+  # Two additional actions/displays added... 
+  # 1. Show who the user is 'following':
   def following
     @title = "Following"
     @user = User.find(params[:id])
@@ -72,6 +75,7 @@ class UsersController < ApplicationController
           # views/users/show_follow.html.erb
   end
 
+  # 2. Show what 'followers' the user has
   def followers
     @title = "Followers"
     @user = User.find(params[:id])

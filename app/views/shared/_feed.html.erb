@@ -1,3 +1,6 @@
+<%-# Called in static_pages/home.html i.e. user's home view, right side of page -%>
+<%-# and 'home' action in static_pages controller... @feed_items = current_user.feed-%>
+
 <% if @feed_items.any? %>
 
   <ol class="userposts">

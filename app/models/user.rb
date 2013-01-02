@@ -2,32 +2,35 @@
 #
 # Table name: users
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  email      :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#
-# to update run command: bundle exec annotate
+#  id              :integer          not null, primary key
+#  name            :string(255)
+#  email           :string(255)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  password_digest :string(255)
+#  remember_token  :string(255)
+#  admin           :boolean          default(FALSE)
+
+# To update Schema info type command:   bundle exec annotate
 
 class User < ActiveRecord::Base
 
   # attr_accessible() and validates() are methods, we can omit the ()
   
   # Attributes that can be modified by outside users: 	
-  attr_accessible :name, :email, :password, :password_confirmation
+  attr_accessible :name,  :email,  :password,  :password_confirmation
   
   # Rails method that checks presence of passwords and that they match
   has_secure_password
   
   # posts should be destroyed when their associated user is destroyed
-  has_many :userposts, dependent: :destroy
+  has_many :userposts,   dependent: :destroy
 
   # Note: as the userposts table has a user_id attribute to identify the user,
   # Rails infers this as a foreign key. Rails expects a foreign key of the form
   # <class>_id, where <class> is the lower-case version of the class name (user)
 
-  # for the relationships table we must specify the foreign key here as 
+  # For the relationships table we must specify the foreign key here as 
   # we used the attribute name "follower_id" instead of "user_id"
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
   # Destroying a user should also destroy that user’s relationships
@@ -48,7 +51,8 @@ class User < ActiveRecord::Base
 
   # to ensure email uniqueness, set email address to lower-case before saving to the database. 
   before_save { |user| user.email = email.downcase }
-  #  run method create_remember_token before saving the user
+
+  #  run method create_remember_token before saving the user (create or update actions) 
   before_save :create_remember_token
   
   # Rails validates presence of attribute using the blank? method
@@ -68,7 +72,7 @@ class User < ActiveRecord::Base
 
 
   def feed
-    # preliminary implementation for the userpost status feed
+    # initial implementation for a status feed of main user only was
     # Userpost.where("user_id = ?", id)
     # the '?' ensures id is 'escaped' before inclusion in the SQL query (security)
     # Best practice escaping variables injected into SQL statements
