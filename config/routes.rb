@@ -1,4 +1,5 @@
 FestApp::Application.routes.draw do
+ 
   # supply app with named routes and actions needed for a RESTful Users resource
   
   resources :users do
@@ -15,6 +16,8 @@ FestApp::Application.routes.draw do
   resources :userposts, only: [:create, :destroy]
 
   resources :relationships, only: [:create, :destroy]
+
+  resources :profiles
 
   root to: 'static_pages#home'
 

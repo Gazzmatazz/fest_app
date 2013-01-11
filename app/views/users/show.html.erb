@@ -13,8 +13,14 @@
     <section>
       <%= render 'shared/stats' %>        
       <%-# views/shared/_stats -%>
-
     </section>
+
+    <%-# Add Personal Profile Info -%>
+    <section>
+          <h4>Favourite Music</h4>
+          <%= @user.profile.music %>
+    </section>
+
   </aside>
 
   <div class="span8">

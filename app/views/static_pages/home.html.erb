@@ -15,7 +15,7 @@
         <%= render 'shared/stats' %>
       </section>
 
-      <%-# Render partial for the Userpost form -%>
+      <%-# Render partial in views/shared for the Userpost form -%>
       <section>
         <%= render 'shared/userpost_form' %>
       </section>
@@ -35,6 +35,11 @@
 
 <% else %>
 
+  <div class="center">
+    <%= link_to image_tag("twilight.jpg", alt: "FestMate"), signup_path %>
+    <%-# HTML THIS YIELDS: <img alt="FestMate" src="/assets/twilight.jpg" /> -%>
+  </div>
+
   <div class="center hero-unit">
 	<h1>Fest Mate</h1>
 
@@ -46,10 +51,7 @@
     							class: "btn btn-large btn-primary" %>
   </div>
 
-  <%-# TEMPORARY app logo, Rails default logo in assets -%>
-  <%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
-  <%-# HTML THIS YIELDS: <img alt="Rails" src="/assets/rails.png" /> -%>
-
+  
 <% end %>
 
 

@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121228230419) do
+ActiveRecord::Schema.define(:version => 20130105232951) do
+
+  create_table "profiles", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "gender"
+    t.string   "relationship_status"
+    t.date     "birthdate"
+    t.string   "city"
+    t.string   "music"
+    t.string   "about_me"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
 
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"

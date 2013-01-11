@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
   
   # posts should be destroyed when their associated user is destroyed
   has_many :userposts,   dependent: :destroy
+  has_one :profile,   dependent: :destroy
 
   # Note: as the userposts table has a user_id attribute to identify the user,
   # Rails infers this as a foreign key. Rails expects a foreign key of the form
