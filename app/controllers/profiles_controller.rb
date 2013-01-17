@@ -4,24 +4,14 @@ class ProfilesController < ApplicationController
   # signed_in_user method in sessions_helper.rb
   # restricting access to these actions to signed in users only
 
-  before_filter :correct_user,   only: [:edit, :update]
+ before_filter :correct_user,   only: [:edit, :update]
   # users should only be allowed to edit their own information
   # correct_user defined below
 
   def index
   end
 
-  # def new
-  #      @profile = Profile.new
-  # end
-
-
-  # def create
-  #  @profile = current_user.profiles.build(params[:profile])
-    # @profile.save
-      
-  # end
-
+  
 
   def edit
   	# or something like current_user.profile(params[:userpost])   ??

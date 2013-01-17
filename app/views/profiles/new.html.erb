@@ -1,0 +1,47 @@
+<% provide(:title, "Create profile") %> 
+<h1>Create your profile</h1>
+
+<%-# the form_for helper method, takes in an Active Record object (@profile) and constructs a form in html using the object’s attributes -%>
+<div class="row">
+  <div class="span6 offset3">
+
+    <%= form_for(@profile) do |f| %>
+
+        <%-# the shared error_messages partial -%>
+        <%= render 'shared/error_messages', object: f.object %>
+
+        <%-# enter field for birthdate -%>
+        <p>
+  	       <%= f.label :relationship_status %>
+  	       <%= f.radio_button :relationship_status, "Single" %> Single
+  	       <%= f.radio_button :relationship_status, "In relationship" %> In relationship
+  	    </p>
+
+    	  <p>
+    	   <%= f.label :gender %>
+    	   <%= f.radio_button :gender, "Male" %> Male
+    	   <%= f.radio_button :gender, "Female" %> Female
+    	  </p>
+
+        <%= f.label :city %>
+        <%= f.text_field :city %>
+
+    	  <div class="field">
+          <%= f.label :music %>
+          <%= f.text_area(:music, :size => "20x5")%>
+      	</div>
+
+    	  <div class="field">
+  	      <%= f.label :about_me %>
+          <%= f.text_area(:about_me, :size => "20x5")%>
+    	  </div>
+     
+        <%= f.submit "Save", class: "btn btn-large btn-primary" %>
+
+    <% end %>
+
+  </div>
+</div>
+
+
+<%-# @profile defined in profiles_controller -%>

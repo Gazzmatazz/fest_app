@@ -17,8 +17,10 @@
 
     <%-# Add Personal Profile Info -%>
     <section>
+      <%-# if @user.profile.music.any? %>
           <h4>Favourite Music</h4>
           <%= @user.profile.music %>
+      <%-# end %>
     </section>
 
   </aside>
