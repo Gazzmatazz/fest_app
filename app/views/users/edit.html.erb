@@ -4,7 +4,7 @@
 <%-# the form_for helper method, takes in an Active Record object (user) and constructs a form in html using the object’s attributes -%>
 
 <div class="row">
-  <div class="span6 offset3">
+  <div class="span6 offset3 forms_box">
     <%= form_for(@user) do |f| %>
       <%-# the shared error_messages partial -%>
       <%= render 'shared/error_messages', object: f.object %>

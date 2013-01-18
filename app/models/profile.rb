@@ -15,8 +15,8 @@
 #
 
 class Profile < ActiveRecord::Base
-  attr_accessible :about_me, :city, :gender, :music, :relationship_status
-  # :birthdate,
+  attr_accessible :about_me, :birthdate, :city, :gender, :music, :relationship_status
+  
   
   belongs_to :user
 

@@ -22,6 +22,7 @@ class UserpostsController < ApplicationController
 
   def destroy
     @userpost.destroy
+
     redirect_to root_url
   end
 

@@ -1,0 +1,25 @@
+
+<ul class="profile_list">
+    <li>
+	<h6>Home Town</h6>
+	<%= @user.profile.city %>
+    </li>
+
+    <li>	
+	<%-# if @user.profile.music.any? %>
+	<h6>Favourite Music</h6>
+	<%= @user.profile.music %>
+	<%-# end %>
+    </li>
+
+    <li>
+	<h6>Other Interests</h6>
+	<%= @user.profile.about_me %>
+    </li>
+
+	<li>
+		<h6>Relationship Status</h6>
+		<%= @user.profile.relationship_status %>
+    </li>
+
+</ul>

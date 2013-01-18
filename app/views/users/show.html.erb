@@ -3,11 +3,15 @@
 <div class="row">
 
   <aside class="span4">
-    <section>
-      <h1>
-        <%= gravatar_for @user %>
+
+    <h3>  
         <%= @user.name %>
-      </h1>
+    </h3>
+
+    <section>
+      <%-#  gravatar_for helper method defined in helpers/users_helper.rb -%>
+      <%= gravatar_for @user, size: 300 %>
+
     </section>
 
     <section>
@@ -16,18 +20,15 @@
     </section>
 
     <%-# Add Personal Profile Info -%>
-    <section>
-      <%-# if @user.profile.music.any? %>
-          <h4>Favourite Music</h4>
-          <%= @user.profile.music %>
-      <%-# end %>
+    <section class="profiles">
+          <%= render 'shared/profile_info' %>           
     </section>
 
   </aside>
 
   <div class="span8">
     <%= render 'follow_form' if signed_in? %>   
-    <%-# Display a 'Follow' or 'Unfollow' button -%> 
+    <%-# Display a 'Follow' or 'Unfollow' button if on another users page -%> 
     <%-# views/users/_follow_form -%>
 
     <% if @user.userposts.any? %>

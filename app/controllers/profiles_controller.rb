@@ -12,12 +12,9 @@ class ProfilesController < ApplicationController
   end
 
   
-
   def edit
-  	# or something like current_user.profile(params[:userpost])   ??
     @user.profile ||= Profile.new
     @profile = @user.profile
-
   end
 
 

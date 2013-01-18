@@ -10,8 +10,14 @@
 
     <ul>
     <% object.errors.full_messages.each do |msg| %>
-      <li>* <%= msg %></li>
+
+        <% if msg.exclude? "digest"  %>
+        <%# Print list of errors except 'Password Digest' %>
+          <li>* <%= msg %></li>
+        <% end %> 
+
     <% end %>
     </ul>
+    
   </div>
 <% end %>

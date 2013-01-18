@@ -56,6 +56,7 @@ class UsersController < ApplicationController
       flash[:success] = "Profile updated"
       sign_in @user   # because the remember token gets reset when user is saved
       redirect_to @user
+     else 
       render 'edit'
     end
   end

@@ -1,13 +1,16 @@
 <%-# partial called in 'index' view to list all users as below -%>
 
 <li>
-  <%= gravatar_for user, size: 52 %>
+  <%= gravatar_for user, size: 100 %>
   <%= link_to user.name, user %>
   
   <% if current_user.admin? && !current_user?(user) %>
     | <%= link_to "delete", user, method: :delete,
                                   data: { confirm: "Are you sure?" } %>
   <% end %>
+
+   <%-# user.city %>
+
 </li>
 
 <%-# the delete links won’t work if the user has JavaScript disabled -%>
