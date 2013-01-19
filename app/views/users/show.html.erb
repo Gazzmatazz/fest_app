@@ -32,7 +32,7 @@
     <%-# views/users/_follow_form -%>
 
     <% if @user.userposts.any? %>
-      <h3>Posts (<%= @user.userposts.count %>)</h3>
+      <h3>Posts by <%= @user.name %> (<%= @user.userposts.count %>)</h3>
 
       <ol class="userposts">
         <%= render @userposts %>

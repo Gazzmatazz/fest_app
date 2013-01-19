@@ -96,6 +96,8 @@ class User < ActiveRecord::Base
     relationships.find_by_followed_id(other_user.id).destroy
   end
 
+  
+
   # private methods used internally by the User model only
   private
 

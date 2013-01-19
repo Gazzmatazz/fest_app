@@ -16,11 +16,11 @@ class UsersController < ApplicationController
   	    # params[:id] will return the user id
   	    # the instance variable @user will then be used in view file
 
-        @userposts = @user.userposts.paginate(page: params[:page])
+        @userposts = @user.userposts.paginate(page: params[:page], per_page: 10)
   end
 
   def index
-    @users = User.paginate(page: params[:page])
+    @users = User.paginate(page: params[:page], per_page: 4)
   end
 
   def new
