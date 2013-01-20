@@ -8,9 +8,6 @@ class ProfilesController < ApplicationController
   # users should only be allowed to edit their own information
   # correct_user defined below
 
-  def index
-  end
-
   
   def edit
     @user.profile ||= Profile.new

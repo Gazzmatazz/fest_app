@@ -13,14 +13,13 @@ class UsersController < ApplicationController
 
   def show
   	    @user = User.find(params[:id])
-  	    # params[:id] will return the user id
-  	    # the instance variable @user will then be used in view file
+  	    # the instance variable @user will be used in view file
 
         @userposts = @user.userposts.paginate(page: params[:page], per_page: 10)
   end
 
-  def index
-    @users = User.paginate(page: params[:page], per_page: 4)
+  def index   
+        @users = User.paginate(page: params[:page], per_page: 4)
   end
 
   def new
@@ -29,19 +28,20 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
+
     if @user.save
       sign_in @user            # sessions_helper method
       flash[:success] = "Account created!"
       redirect_to edit_profile_path(current_user)
       # the default behavior for a Rails action is to render the corresponding view
-      # but here we want to redirect to the specific user profile ('show' view file).
-      # We can omit the user_url in the redirect, writing simply redirect_to @user 
-      # to redirect to the user show page
+      # but here we want to redirect to invite the user to add their profile info.
     else
       render 'new'
       # if it doesn't save new user then stay on new view
     end
+
   end
+
 
   def edit
     # @user already defined by correct_user (defined below and called at before filter)
@@ -49,7 +49,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    # @user already defined by correct_user (defined below and called at before filter)
     # updated values passed in from form on Edit view file
     if @user.update_attributes(params[:user])
       # Handle a successful update.

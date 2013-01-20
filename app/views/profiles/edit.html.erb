@@ -10,13 +10,11 @@
                            
         <%-# the shared error_messages partial -%>
         <%= render 'shared/error_messages', object: f.object %>
-
         
         <p>
   	       <%= f.label :relationship_status %>
   	       <%= f.radio_button :relationship_status, "Single" %> Single
   	       <%= f.radio_button :relationship_status, "In relationship" %> In relationship
-
   	    </p>
 
     	  <p>
@@ -25,7 +23,6 @@
     	   <%= f.radio_button :gender, "Female" %> Female
     	  </p>
 
-       
         <%= f.label :city %>
         <%= f.text_field :city %>
 
@@ -40,11 +37,14 @@
     	  </div>
      
         <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+        <%-# forward @profile params to 'update' action in Profiles controller -%>
 
     <% end %>
 
   </div>
 </div>
 
-
-<%-# @profile defined in profiles_controller -%>
+<%-# Rails uses a POST request for new users and a PUT for editing users -%>
+<%-# When constructing a form, Rails uses POST if @profile.new_record? is true -%>
+<%-# and PUT if it is false. -%>
+<%-# Here I needed to specify to always use a PUT request as it was not a requirement for users to add profile information when creating accounts -%>

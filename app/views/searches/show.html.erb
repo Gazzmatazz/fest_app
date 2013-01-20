@@ -1,0 +1,20 @@
+<% provide(:title, 'Search Results') %>
+
+<h1>Search Results</h1>
+
+<%-# Displays the search results via the Search Model method 'users'.  %>
+<div class="index-box">
+
+	<p><%= link_to "New Search", new_search_path %></p>
+
+	<ul class="users">
+		<%= render @search.users %>
+	</ul>
+			
+</div>
+
+<%-# Render calls a method named ".users" which can be found in the Search model, %>
+<%-# this is where the SQL querying is performed using the values in @search %>
+<%-# It returns a list of the matching users back to here and renders it.  %>
+
+<%-# Finally, this renders a partial for each User found in the search result.    %>
